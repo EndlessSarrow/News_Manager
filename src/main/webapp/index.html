@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>KindEditor JSP</title>
+<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="kindeditor/kindeditor-all.js"></script>
+<script charset="utf-8" src="kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="kindeditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="kindeditor/plugins/code/prettify.js"></script>
+<script language="javascript" type="text/javascript">
+	KindEditor.ready(function(K) {
+		var editor1 = K.create('textarea[name="content"]', {
+			cssPath : 'kindeditor/plugins/code/prettify.css',
+			uploadJson : 'kindeditor/jsp/upload_json.jsp',
+			fileManagerJson : 'kindeditor/jsp/file_manager_json.jsp',
+			resizeType : 1, //这里的name属性值和下面的对应，你改成你项目用的name属性值
+			allowPreviewEmoticons : false,
+			allowImageUpload : true, //打开本地上传图片功能
+			items : [ 'source', '|', 'undo', 'redo', '|', 'preview', 'print',
+					'template', 'cut', 'copy', 'paste', 'plainpaste',
+					'wordpaste', '|', 'justifyleft', 'justifycenter',
+					'justifyright', 'justifyfull', 'insertorderedlist',
+					'insertunorderedlist', 'indent', 'outdent', 'subscript',
+					'superscript', 'clearhtml', 'quickformat', 'selectall',
+					'|', 'fullscreen', '/', 'formatblock', 'fontname',
+					'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+					'italic', 'underline', 'strikethrough', 'lineheight',
+					'removeformat', '|', 'table', 'hr', 'image' ],//image打开本地上传图片必须写,重要的事情说三遍
+			afterBlur : function() {
+				this.sync(); //焦点问题，这里不写会出问题.同步KindEditor的值到textarea文本框      
+			}
+		});
+	});
+</script>
+<style type="text/css">
+#container {
+	width: 702px;
+	height: 600px;
+	margin: 0 auto;
+}
+
+#container #title {
+	width: 693px;
+	height: 30px;
+	font-size: 20px;
+	padding-left: 5px;
+	outline: none;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+		<form name="example" method="post" action="add">
+			<input type="text" name="title" id="title" value="" placeholder="请输入新闻标题" /><br /> <br />
+			<textarea name="content" cols="100" rows="8" style="width:700px;height:500px;visibility:hidden;"></textarea>
+			<br /> <input type="submit" name="button" value="提交内容" /> (提交快捷键:
+			Ctrl + Enter)
+		</form>
+	</div>
+</body>
+</html>
